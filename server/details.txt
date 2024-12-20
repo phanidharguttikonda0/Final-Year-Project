@@ -39,3 +39,10 @@ each document should contain
 we are going to use the mongo db for this
 
 For a Chat we are going to allow only upload one SRS document and the we can allow multiple prompts
+
+
+the packages used are : npm install express mongoose cors dotenv nodemon
+
+for front-end :
+    ->  npm install -D tailwindcss postcss autoprefixer   [ the hiphen D means we are going to use them only in development stage not in production]
+    -> npx tailwindcss init -p
