@@ -23,15 +23,11 @@ each document should contain
 
         chats-history: [
 
-            chat-1: [  { prompt: “”, model-used: "", out-put: “”} , ....       ]
+            chat-1: [ fileReferenceId: "" , conversation: [ { prompt: “”, model-used: "", out-put: “”} , ....     ]  ]
 
             ....
 
             ],
-        chats: [
-            chat-1: srs.pdf,
-            ....
-        ]
 
     }
 ]
@@ -46,3 +42,19 @@ the packages used are : npm install express mongoose cors dotenv nodemon
 for front-end :
     ->  npm install -D tailwindcss postcss autoprefixer   [ the hiphen D means we are going to use them only in development stage not in production]
     -> npx tailwindcss init -p
+
+
+Project Structure :
+    -> Controllers : do actions based on the user requests and sends the responses
+    -> Services : serve the things , we gonna use in Controllers mostly like registering new details in to data base or getting data from data base etc
+    -> Routes : helps in defining the end points where the request should go
+    -> Models : helps in defining the structure of the data stored in the data base
+where the above 4 are the mostly used folders , but there are few folders used often in big projects
+    -> Middleware
+    -> Config
+    -> Utils
+
+Basically we use these many folders for better reusability and flexibility
+
+we have created a dabase called final_year_application with a collection called main
+where we are going to use only one collection for the whole application
