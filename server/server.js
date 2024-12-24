@@ -1,5 +1,6 @@
 const express = require("express");
 const authentication = require("./Routes/authenticationRoutes.js");
+const home = require("./Routes/homeRoutes.js");
 const dotenv = require("dotenv");
 const connectDB = require("./config/db");
 const app = express();
@@ -13,6 +14,8 @@ connectDB();
 app.use(express.json()); // Parses JSON request bodies
 
 app.use("/", authentication); // all parent routes will go in to authentication
+
+app.use("/home", home);
 
 // let's learn about the back-end project structure of the node js
 // and also learn how to store files in the mongo db

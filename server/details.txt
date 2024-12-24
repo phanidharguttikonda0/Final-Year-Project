@@ -4,11 +4,13 @@ https://localhost:xxxx/sign-in  [Studio Sync] or [Core Create]
 
 https://localhost:xxxx/sign-up [Studio Setup] or [Core Connect] the word we are going to use for the sign-up
 
-https://localhost:xxxx/get-history
+https://localhost:xxxx/home/get-history-items [ return all the chat history ]
 
-https://localhost:xxxx/get-history-item  [returns the item of the history clicked]
+https://localhost:xxxx/home/get-history-item  [ the clicked index will be return ]
 
-https://localhost:xxxx/post-history  [sends the prompt and the out-put of the ai model ] doesn’t sends the pdf file
+https://localhost:xxxx/home/new-chat [ a new chat will be posted ]
+
+https://localhost:xxxx/home/post-chat [ on the existing chat it will post the new prompt and out-put ]
 
 each document should contain
 
@@ -23,16 +25,18 @@ each document should contain
 
         chats-history: [
 
-            chat-1: [ fileReferenceId: "" , conversation: [ { prompt: “”, model-used: "", out-put: “”} , ....     ]  ]
-
-            ....
+            { srsData: "" , name: "name of the chat", conversation: [ { prompt: “”, model-used: "", out-put: “”} , ....     ]  }
 
             ],
-
     }
 ]
 
-we are going to use the mongo db for this
+
+O/P : will be
+
+
+
+we are going to use the mongo db for thisSS
 
 For a Chat we are going to allow only upload one SRS document and the we can allow multiple prompts
 
@@ -58,3 +62,11 @@ Basically we use these many folders for better reusability and flexibility
 
 we have created a dabase called final_year_application with a collection called main
 where we are going to use only one collection for the whole application
+
+
+
+
+******
+Every Time when a new prompt is send , we will pass the summary of the old prompts, as well as the srs-data and the current prompt, so the ai model
+ables to know what happend previously and what are the key points in the srs as well as the current revised prompt, which helps in accurate results.
+******

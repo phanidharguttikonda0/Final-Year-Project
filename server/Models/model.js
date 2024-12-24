@@ -2,7 +2,8 @@ const mongoose = require("mongoose");
 
 // Define the schema for chat history
 const ChatSchema = new mongoose.Schema({
-  fileReferenceId: { type: String, required: true },
+  srsText: { type: String, required: true },
+  name: { type: String, required: true }, // name of the chat that an user can specify
   conversation: [
     {
       prompt: { type: String, required: true },
@@ -23,4 +24,4 @@ const UserSchema = new mongoose.Schema({
 // Create the model
 const User = mongoose.model("User", UserSchema);
 
-module.exports = User;
+module.exports = { User, ChatSchema };
