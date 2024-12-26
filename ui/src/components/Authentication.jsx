@@ -63,7 +63,7 @@ function Authentication() {
           )}
 
           <button
-            class="inline-flex items-center justify-center h-12 px-4 rounded-lg bg-gradient-to-tr from-[#5adaff] to-[#5468ff] text-white font-mono text-lg cursor-pointer transform transition-all duration-150 focus:outline-none focus:ring-4 focus:ring-[#3c4fe0] focus:ring-inset hover:shadow-[rgba(45,_35,_66,_0.4)_0_4px_8px,_rgba(45,_35,_66,_0.3)_0_7px_13px_-3px,_#3c4fe0_0_-3px_0_inset] hover:translate-y-[-2px] active:shadow-[#3c4fe0_0_3px_7px_inset] active:translate-y-[2px] mb-[5%]"
+            className="inline-flex items-center justify-center h-12 px-4 rounded-lg bg-gradient-to-tr from-[#5adaff] to-[#5468ff] text-white font-mono text-lg cursor-pointer transform transition-all duration-150 focus:outline-none focus:ring-4 focus:ring-[#3c4fe0] focus:ring-inset hover:shadow-[rgba(45,_35,_66,_0.4)_0_4px_8px,_rgba(45,_35,_66,_0.3)_0_7px_13px_-3px,_#3c4fe0_0_-3px_0_inset] hover:translate-y-[-2px] active:shadow-[#3c4fe0_0_3px_7px_inset] active:translate-y-[2px] mb-[5%]"
             onClick={submit}
           >
             {core ? "Core Create" : "Core Connect"}
