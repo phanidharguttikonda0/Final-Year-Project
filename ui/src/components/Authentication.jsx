@@ -1,10 +1,12 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function Authentication() {
-  const [core, changeCore] = useState();
+  const [core, changeCore] = useState(false);
   const [mail, changeMail] = useState("");
   const [mobile, changeMobile] = useState("");
   const [password, changePassword] = useState("");
+  const navigate = useNavigate();
 
   const submit = () => {
     if (core) {
@@ -12,22 +14,24 @@ function Authentication() {
     } else {
       // Core Connect
     }
+    localStorage.setItem("mail", mail);
+    navigate("/");
   };
 
   return (
-    <div className="bg-gray-100 w-full h-svh flex justify-center items-center">
+    <div className="bg-[#1B2430] w-full h-svh flex justify-center items-center">
       <div className="flex flex-col items-start">
-        <h2 className="text-black  text-5xl">
+        <h2 className="text-[#0ff]  text-5xl">
           {" "}
           {core ? "Core Create" : "Core Connect"}
         </h2>
-        <div className="flex flex-col items-center mt-[10%] bg-white p-[12%] rounded-lg shadow-lg">
+        <div className="flex flex-col items-center mt-[10%] bg-transparent p-[12%] rounded-lg shadow-cyan">
           <input
             type="email"
             placeholder="Email"
             value={mail}
             onChange={(e) => changeMail(e.target.value)}
-            className="bg-transparent mb-[10%] border  border-black border-x-0 border-t-0 border-b-2 border-solid  outline-0 text-2xl text-black p-1 align-text-center "
+            className="bg-transparent mb-[10%] border  border-[#0ff] border-x-0 border-t-0 border-b-2 border-solid  outline-0 text-2xl text-[white]  p-1 align-text-center "
           />
           {core ? (
             <input
@@ -35,7 +39,7 @@ function Authentication() {
               placeholder="Mobile"
               value={mobile}
               onChange={(e) => changeMobile(e.target.value)}
-              className="bg-transparent mb-[10%] border  border-black border-x-0 border-t-0 border-b-2 border-solid  outline-0 text-2xl text-black p-1 align-text-center"
+              className="bg-transparent mb-[10%] border  border-[#0ff] border-x-0 border-t-0 border-b-2 border-solid  outline-0 text-2xl text-[white] p-1 align-text-center"
             />
           ) : (
             ""
@@ -45,12 +49,12 @@ function Authentication() {
             placeholder="Password"
             value={password}
             onChange={(e) => changePassword(e.target.value)}
-            className="bg-transparent mb-[5%] border  border-black border-x-0 border-t-0 border-b-2 border-solid  outline-0 text-2xl text-black p-1 align-text-center"
+            className="bg-transparent mb-[5%] border  border-[#0ff] border-x-0 border-t-0 border-b-2 border-solid  outline-0 text-2xl text-[white]  p-1 align-text-center"
           />
 
           {!core ? (
             <div className="flex justify-end items-center w-full mb-[5%]">
-              <div className="text-gray-500 cursor-pointer underline hover:text-black">
+              <div className="text-gray-500 cursor-pointer underline hover:text-[#0ff]">
                 forget password
               </div>
             </div>
@@ -65,10 +69,10 @@ function Authentication() {
             {core ? "Core Create" : "Core Connect"}
           </button>
 
-          <div className="inline">
+          <div className="inline text-gray-500">
             {core ? "already has account " : "doesn't has an account "}
             <div
-              className="inline text-gray-500 cursor-pointer underline hover:text-black"
+              className="inline text-gray-500 cursor-pointer underline hover:text-[#0ff]"
               onClick={() => changeCore(!core)}
             >
               {core ? "Core Connect" : "Core Create"}
