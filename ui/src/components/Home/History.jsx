@@ -12,7 +12,9 @@ function History(props) {
         History{" "}
       </h3>
       <button
-        onClick={() => {}}
+        onClick={() => {
+          props.chat.changenewChat(!props.chat.newChat);
+        }}
         className={`flex justify-center items-center text-white w-[100%] text-xl mt-[5%] mb-[5%] ml-[2%] mr-[2%] border-2 border-gray-400 rounded-lg p-[3%]`}
       >
         <h2 className="pr-[5%]"> + </h2>

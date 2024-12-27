@@ -1,28 +1,50 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import Alert from "./Alert";
 
 function Authentication() {
   const [core, changeCore] = useState(false);
   const [mail, changeMail] = useState("");
   const [mobile, changeMobile] = useState("");
   const [password, changePassword] = useState("");
+  const [alert, setAlert] = useState(false);
+  const [message, setMessage] = useState("");
   const navigate = useNavigate();
 
-  const submit = () => {
+  const submit = async () => {
+    let url = "";
+    let object = {};
     if (core) {
       // means Core Create , a new account was going to be created
+      url = "http://localhost:5000/register";
+      object = { email: mail, mobile, password };
     } else {
       // Core Connect
+      url = "http://localhost:5000/login";
+      object = { email: mail, password };
     }
-    localStorage.setItem("mail", mail);
-    navigate("/");
+
+    try {
+      const response = await axios.post(url, object);
+
+      if (response.data.value) {
+        localStorage.setItem("mail", mail);
+        navigate("/");
+      } else {
+        setMessage(response.data.message);
+        setAlert(true);
+      }
+    } catch (error) {
+      setMessage("An error occurred. Please try again.");
+      setAlert(true);
+    }
   };
 
   return (
-    <div className="bg-[#1B2430] w-full h-svh flex justify-center items-center">
+    <div className="bg-[#1B2430] w-full h-screen flex justify-center items-center">
       <div className="flex flex-col items-start">
-        <h2 className="text-[#0ff]  text-5xl">
-          {" "}
+        <h2 className="text-[#0ff] text-5xl">
           {core ? "Core Create" : "Core Connect"}
         </h2>
         <div className="flex flex-col items-center mt-[10%] bg-transparent p-[12%] rounded-lg shadow-cyan">
@@ -31,35 +53,31 @@ function Authentication() {
             placeholder="Email"
             value={mail}
             onChange={(e) => changeMail(e.target.value)}
-            className="bg-transparent mb-[10%] border  border-[#0ff] border-x-0 border-t-0 border-b-2 border-solid  outline-0 text-2xl text-[white]  p-1 align-text-center "
+            className="bg-transparent mb-[10%] border border-[#0ff] border-x-0 border-t-0 border-b-2 border-solid outline-0 text-2xl text-white p-1 align-text-center"
           />
-          {core ? (
+          {core && (
             <input
               type="number"
               placeholder="Mobile"
               value={mobile}
               onChange={(e) => changeMobile(e.target.value)}
-              className="bg-transparent mb-[10%] border  border-[#0ff] border-x-0 border-t-0 border-b-2 border-solid  outline-0 text-2xl text-[white] p-1 align-text-center"
+              className="bg-transparent mb-[10%] border border-[#0ff] border-x-0 border-t-0 border-b-2 border-solid outline-0 text-2xl text-white p-1 align-text-center"
             />
-          ) : (
-            ""
           )}
           <input
             type="password"
             placeholder="Password"
             value={password}
             onChange={(e) => changePassword(e.target.value)}
-            className="bg-transparent mb-[5%] border  border-[#0ff] border-x-0 border-t-0 border-b-2 border-solid  outline-0 text-2xl text-[white]  p-1 align-text-center"
+            className="bg-transparent mb-[5%] border border-[#0ff] border-x-0 border-t-0 border-b-2 border-solid outline-0 text-2xl text-white p-1 align-text-center"
           />
-
-          {!core ? (
+          {alert && <Alert message={message} onClose={setAlert} />}
+          {!core && (
             <div className="flex justify-end items-center w-full mb-[5%]">
               <div className="text-gray-500 cursor-pointer underline hover:text-[#0ff]">
-                forget password
+                Forgot password
               </div>
             </div>
-          ) : (
-            ""
           )}
 
           <button
@@ -70,7 +88,7 @@ function Authentication() {
           </button>
 
           <div className="inline text-gray-500">
-            {core ? "already has account " : "doesn't has an account "}
+            {core ? "Already have an account? " : "Doesn't have an account? "}
             <div
               className="inline text-gray-500 cursor-pointer underline hover:text-[#0ff]"
               onClick={() => changeCore(!core)}

@@ -7,6 +7,7 @@ import MainBody from "./Home/MainBody";
 function Home(props) {
   const navigate = useNavigate();
   const [historyButton, changeHistory] = useState(true);
+  const [newChat, changenewChat] = useState(true);
   // we will take out all the history items over here
 
   useEffect(() => {
@@ -17,15 +18,20 @@ function Home(props) {
   }, [navigate]);
 
   return (
-    <div className="flex justify-start items-center bg-[#1B2430] w-[100%] h-[100vh]">
-      <MainBody btns={{ historyButton, changeHistory }} />
+    <div className="flex justify-start items-center bg-[#1B2430] w-[100%] h-[100vh] transition-all duration-700">
+      <MainBody
+        btns={{ historyButton, changeHistory }}
+        chat={{ newChat, changenewChat }}
+      />
       <div
-        className={!historyButton ? "w-0" : "w-[20%] h-[100vh] bg-[#0e131a]"}
+        className={`transition-all duration-700 ${
+          historyButton ? "w-[20%]" : "w-0"
+        } h-[100vh] bg-[#0e131a] overflow-hidden`}
       >
-        {historyButton && <History />}
+        {historyButton && <History chat={{ newChat, changenewChat }} />}
       </div>
     </div>
   );
-}
+} // transition-all duration-500 transform
 
 export default Home;
