@@ -23,6 +23,8 @@ function MainBody(props) {
           changeHistory: props.btns.changeHistory,
         }}
         chat={props.chat}
+        selectedChat={props.selectedChat}
+        history={props.history}
       />
     </div>
   );

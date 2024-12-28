@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Alert from "./Alert";
@@ -11,6 +11,12 @@ function Authentication() {
   const [alert, setAlert] = useState(false);
   const [message, setMessage] = useState("");
   const navigate = useNavigate();
+  const [local, setLocal] = useState(localStorage.getItem("mail"));
+  useEffect(() => {
+    if (local !== null) {
+      navigate("/");
+    }
+  }, [local, navigate]);
 
   const submit = async () => {
     let url = "";
