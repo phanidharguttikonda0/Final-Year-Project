@@ -14,7 +14,7 @@ const CodeEditor = ({ code }) => {
   };
 
   return (
-    <div className="p-4 bg-gray-800 text-white rounded-lg shadow-md w-full max-w-3xl">
+    <div className="p-4 bg-gray-800 text-white rounded-lg shadow-md w-full max-w-3xl mb-[2%]">
       {/* Header */}
       <div className="flex justify-between items-center mb-2">
         <h3 className="text-lg font-bold">Generated Code</h3>
