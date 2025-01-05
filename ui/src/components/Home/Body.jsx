@@ -6,8 +6,11 @@ import CodeEditor from "./CodeEditor";
 import Alert from "../Alert";
 import axios from "axios";
 import Name from "./Name";
+import Loading from "./Loading.jsx";
+import Choice from "./Choice.jsx";
 
 function Body(props) {
+  const [loading, setLoading] = useState(false);
   const [text, setText] = useState("");
   const textareaRef = useRef(null);
   const [alert, setAlert] = useState(false);
@@ -15,7 +18,7 @@ function Body(props) {
   const [file, setFile] = useState(null);
   const [name, setName] = useState(null);
   const [enterName, setenterName] = useState(false);
-
+  const [selectedOption, setSelectedOption] = useState(0);
   // if the selectedItem value is not null body should contain the that item chat
 
   const handleFileChange = (event) => {
@@ -27,6 +30,7 @@ function Body(props) {
 
   return (
     <div className="w-[100%] h-[90vh] overflow-scroll no-scrollbar ">
+      {loading && <Loading />}
       {props.chat.newChat && props.selectedChat.selectedItem === null ? (
         <div className="w-[100%] h-[90vh] flex justify-center items-center">
           <div className="w-[80%] ">
@@ -72,6 +76,11 @@ function Body(props) {
                   )}
                 </div>
 
+                <Choice
+                  selectedOption={selectedOption}
+                  setSelectedOption={setSelectedOption}
+                />
+
                 <button
                   onClick={async () => {
                     // when this button was clicked , we are going to add the new chat in to the data-base and also in to the history items
@@ -81,6 +90,7 @@ function Body(props) {
                       if (file !== null) {
                         if (name !== null) {
                           console.log("Completed with name ", name);
+                          setLoading(true);
                           const formData = new FormData();
 
                           // Append the form fields
@@ -92,7 +102,7 @@ function Body(props) {
                           formData.append("model", "BERT"); // Model type
                           formData.append("name", name); // Chat name
                           formData.append("file", file); // File object (from an input or another source)
-
+                          formData.append("uml", selectedOption);
                           try {
                             const response = await axios.post(
                               "http://localhost:5000/home/new-chat",
@@ -105,7 +115,9 @@ function Body(props) {
                             );
 
                             console.log("Response:", response.data);
-
+                            if (response.data.value) {
+                              setLoading(false);
+                            }
                             console.log(" the response was ", response.data); // we need to get added chat item
                             props.history.setHistoryItems([
                               ...props.history.historyItems,
@@ -119,6 +131,11 @@ function Body(props) {
                             setText("");
                             setName(null);
                             setFile(null);
+                            setSelectedOption(0);
+                            // selectedItem = {{selectedItemObject, setSelectedItemObject}}
+                            props.selectedItem.setSelectedItemObject(
+                              response.data.chatData.conversation,
+                            );
                           } catch (error) {
                             console.error("Error sending the request:", error);
                           }
@@ -136,8 +153,7 @@ function Body(props) {
                   }}
                   className="cursor-pointer rounded-3xl bg-white p-[1%] shadow-cyan transform transition-transform duration-200 hover:scale-95 active:scale-90"
                 >
-                  {" "}
-                  <HiArrowUp className="text-[#0e131a] text-4xl" />{" "}
+                  <HiArrowUp className="text-[#0e131a] text-4xl" />
                 </button>
               </div>
               {
@@ -155,9 +171,8 @@ function Body(props) {
       ) : (
         <div className="flex flex-col items-center w-[90%] mb-[15%]">
           {}
-          {props.history.historyItems[
-            props.selectedChat.selectedItem
-          ].conversation.map((element, index) => {
+          {props.selectedItem.selectedItemObject.map((element, index) => {
+            console.log(` The Element Was ${element.name} ${element.output}`);
             return (
               <div key={index} className="flex flex-col items-start w-[100%]">
                 <div className="w-[100%] flex justify-start items-center">
@@ -191,11 +206,51 @@ function Body(props) {
                 `}
               style={{ maxHeight: "12rem" }}
             />
-
+            <div className="ml-[1%]">
+              <Choice
+                selectedOption={selectedOption}
+                setSelectedOption={setSelectedOption}
+              />
+            </div>
             <button
               onClick={() => {
-                // when this button was clicked , we are going to add the new chat in to the data-base and also in to the history items
-                // and we will set the new selected item value in to the historyItems.length - 1 index
+                // here
+                const index = props.selectedChat.selectedItem;
+                async function main() {
+                  const newConversation = {
+                    email: localStorage.getItem("mail"),
+                    chatIndex: index,
+                    prompt: text,
+                    model: "BERT",
+                    uml: selectedOption,
+                  };
+                  const response = await axios.post(
+                    "http://localhost:5000/home/post-chat",
+                    newConversation,
+                  );
+
+                  console.log(response.data);
+                  if (response.data.value) {
+                    // now we are going to add the new conversation to the selectedItem
+                    //
+                    setLoading(false);
+                    console.log(
+                      props.selectedItem.selectedItemObject,
+                      "  hell o",
+                    );
+                    props.selectedItem.setSelectedItemObject([
+                      ...props.selectedItem.selectedItemObject,
+                      response.data.output,
+                    ]);
+                    setText("");
+                    setSelectedOption(0);
+                  } else {
+                    setLoading(false);
+                  }
+                }
+
+                setLoading(true);
+                main();
               }}
               className="ml-[1%] cursor-pointer rounded-3xl bg-white p-[1rem] shadow-cyan transform transition-transform duration-200 hover:scale-95 active:scale-90"
             >

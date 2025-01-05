@@ -22,6 +22,7 @@ function MainBody(props) {
           historyButton: props.btns.historyButton,
           changeHistory: props.btns.changeHistory,
         }}
+        selectedItem={props.selectedItem}
         chat={props.chat}
         selectedChat={props.selectedChat}
         history={props.history}

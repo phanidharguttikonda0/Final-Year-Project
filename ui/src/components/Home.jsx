@@ -12,7 +12,7 @@ function Home(props) {
   const [newChat, changenewChat] = useState(true);
   // we will take out all the history items over here
   const [historyItems, setHistoryItems] = useState([]);
-  const [changeHistoryValues, setChangeHistory] = useState(false); // is called when chat is added
+  const [selectedItemObject, setSelectedItemObject] = useState(null); // is called when chat is added
   const [selectedItem, setSelectedItem] = useState(null);
 
   useEffect(() => {
@@ -37,7 +37,7 @@ function Home(props) {
       }
       main();
     }
-  }, [navigate, changeHistoryValues]);
+  }, [navigate]);
 
   return (
     <div className="flex justify-start items-center bg-[#1B2430] w-[100%] h-[100vh] transition-all duration-700">
@@ -46,6 +46,7 @@ function Home(props) {
         chat={{ newChat, changenewChat }}
         selectedChat={{ selectedItem, setSelectedItem }}
         history={{ historyItems, setHistoryItems }}
+        selectedItem={{ selectedItemObject, setSelectedItemObject }}
       />
       <div
         className={`transition-all duration-700 ${
@@ -57,6 +58,7 @@ function Home(props) {
             chat={{ newChat, changenewChat }}
             items={historyItems}
             selectedChat={{ selectedItem, setSelectedItem }}
+            selectedItem={{ selectedItemObject, setSelectedItemObject }}
           />
         )}
       </div>

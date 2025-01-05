@@ -37,6 +37,12 @@ function History(props) {
                   props.selectedChat.setSelectedItem(
                     props.items.length - index - 1,
                   );
+
+                  // selectedItem = {{selectedItemObject, setSelectedItemObject}}
+                  props.selectedItem.setSelectedItemObject(
+                    props.items[props.items.length - index - 1].conversation,
+                  );
+
                   props.chat.changenewChat(false);
                 }}
                 className="whitespace-pre text-xl cursor-pointer bg- p-[1%] inset-1/2%] mb-[2%] mr-[2%] opacity-60 hover:opacity-100 transition-opacity duration-300"
