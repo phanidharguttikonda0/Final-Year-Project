@@ -1,0 +1,117 @@
+@startuml
+
+actor UniversityAdministrators
+actor FacultyAdministrators
+actor DepartmentAdministrators
+actor InventoryAdministrators
+actor Users
+actor ITTeamSystemAdministrators
+
+usecase "Transferring Assets" as UC1
+usecase "Editing Assets" as UC2
+usecase "Modifying Assets" as UC3
+usecase "Adding Inventory Assets" as UC4
+usecase "Creating Request to Borrow an Asset or Reserve a Space" as UC5
+usecase "Returning Assets" as UC6
+usecase "Creating a New Space" as UC7
+usecase "Approving Requests" as UC8
+usecase "Authentication" as UC9
+usecase "Changing Permissions" as UC10
+usecase "Output Reports" as UC11
+usecase "Search" as UC12
+usecase "Modify Use Case" as UC13
+usecase "Edit Use Case" as UC14
+usecase "Add New Asset Use Case" as UC15
+usecase "Create Request Use Case" as UC16
+usecase "Returning Asset Use Case" as UC17
+usecase "Approving Request Use Case" as UC18
+usecase "Change Permissions Use Case" as UC19
+usecase "Authentication Use Case" as UC20
+usecase "Search Use Case" as UC21
+usecase "Create Reports Use Case" as UC22
+
+UniversityAdministrators --> UC1
+FacultyAdministrators --> UC1
+DepartmentAdministrators --> UC1
+InventoryAdministrators --> UC1
+
+UniversityAdministrators --> UC2
+FacultyAdministrators --> UC2
+DepartmentAdministrators --> UC2
+InventoryAdministrators --> UC2
+
+UniversityAdministrators --> UC3
+FacultyAdministrators --> UC3
+DepartmentAdministrators --> UC3
+InventoryAdministrators --> UC3
+
+DepartmentAdministrators --> UC4
+FacultyAdministrators --> UC4
+UniversityAdministrators --> UC4
+ITTeamSystemAdministrators --> UC4
+
+Users --> UC5
+DepartmentAdministrators --> UC5
+FacultyAdministrators --> UC5
+UniversityAdministrators --> UC5
+
+InventoryAdministrators --> UC6
+
+ITTeamSystemAdministrators --> UC7
+
+UniversityAdministrators --> UC8
+FacultyAdministrators --> UC8
+DepartmentAdministrators --> UC8
+InventoryAdministrators --> UC8
+
+UniversityAdministrators --> UC9
+FacultyAdministrators --> UC9
+DepartmentAdministrators --> UC9
+InventoryAdministrators --> UC9
+Users --> UC9
+
+UniversityAdministrators --> UC10
+FacultyAdministrators --> UC10
+DepartmentAdministrators --> UC10
+
+UniversityAdministrators --> UC11
+FacultyAdministrators --> UC11
+DepartmentAdministrators --> UC11
+InventoryAdministrators --> UC11
+Users --> UC11
+
+Users --> UC12
+DepartmentAdministrators --> UC12
+FacultyAdministrators --> UC12
+UniversityAdministrators --> UC12
+
+InventoryAdministrators --> UC13
+InventoryAdministrators --> UC14
+InventoryAdministrators --> UC15
+
+Users --> UC16
+
+InventoryAdministrators --> UC17
+InventoryAdministrators --> UC18
+
+UniversityAdministrators --> UC19
+FacultyAdministrators --> UC19
+DepartmentAdministrators --> UC19
+
+UniversityAdministrators --> UC20
+FacultyAdministrators --> UC20
+DepartmentAdministrators --> UC20
+InventoryAdministrators --> UC20
+Users --> UC20
+
+Users --> UC21
+DepartmentAdministrators --> UC21
+FacultyAdministrators --> UC21
+UniversityAdministrators --> UC21
+
+Users --> UC22
+DepartmentAdministrators --> UC22
+FacultyAdministrators --> UC22
+UniversityAdministrators --> UC22
+
+@enduml

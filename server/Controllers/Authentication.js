@@ -5,20 +5,19 @@ async function registerUser(req, res) {
     const { email, mobile, password } = req.body;
 
     if (!email || !mobile || !password) {
-      res.status(400).json({ message: "every thing is required" });
+      return res.json({ message: "every Feild is required" });
     }
 
     const existingUser1 = await User.findOne({ email });
     const existingUser2 = await User.findOne({ mobile });
     if (existingUser1) {
-      return res
-        .status(400)
-        .json({ message: "Email Id already exists", value: false });
+      return res.json({ message: "Email Id already exists", value: false });
     }
     if (existingUser2) {
-      return res
-        .status(400)
-        .json({ message: "Mobile Number already exists", value: false });
+      return res.json({
+        message: "Mobile Number already exists",
+        value: false,
+      });
     }
 
     const newUser = new User({
@@ -31,9 +30,7 @@ async function registerUser(req, res) {
     await newUser.save();
 
     // Respond with success
-    res
-      .status(201)
-      .json({ message: "User registered successfully", value: true });
+    return res.json({ message: "User registered successfully", value: true });
 
     /*
     we use status 200 when request sucessfull when no resource is created
@@ -53,13 +50,13 @@ async function checkUser(req, res) {
 
     console.log(email, password);
     if (!email || !password) {
-      return res.status(400).json({ message: "every feild is required" });
+      return res.json({ message: "every feild is required" });
     }
 
     const existingUser = await User.findOne({ email });
     console.log(existingUser);
     if (!existingUser) {
-      return res.status(400).json({ message: "Invalid Mail Id", value: false });
+      return res.json({ message: "Invalid Mail Id", value: false });
     }
     if (existingUser.password === password) {
       return res
@@ -67,9 +64,7 @@ async function checkUser(req, res) {
         .json({ message: "Login Check Successfull", value: true });
     }
 
-    return res
-      .status(400)
-      .json({ message: "Password is Incorrect", value: false });
+    return res.json({ message: "Password is Incorrect", value: false });
   } catch (error) {
     console.log(`Error Occured during login attempt ${error}`);
     return res

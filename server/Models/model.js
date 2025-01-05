@@ -9,6 +9,8 @@ const ChatSchema = new mongoose.Schema({
       prompt: { type: String, required: true },
       modelUsed: { type: String, required: true },
       output: { type: String, required: true },
+      image: { type: Buffer, required: true }, // To store the binary image data
+      contentType: { type: String, required: true }, // Optional, to store the content type
     },
   ],
 });
